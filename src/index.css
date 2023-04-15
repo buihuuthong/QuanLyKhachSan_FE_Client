@@ -34,6 +34,7 @@ code {
     max-width: 1280px;
   }
 }
+
 .large-btn{
   width: 100%;
   background: #1da57a;
@@ -93,9 +94,9 @@ a {
 
 .room-item {
   width: calc(50% - 10px);
-  margin-bottom: 20px;
+  margin-left: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   overflow: hidden;
 }
 
@@ -105,7 +106,7 @@ ul.roomHiden li{
 }
 
 ul.roomHiden li img{
-  max-width: 100%;
+  max-width: 108%;
   transition: transform 1.8s ease;
 }
 ul.roomHiden li:hover img{
@@ -114,24 +115,24 @@ ul.roomHiden li:hover img{
 
 
 .room-info {
-  padding: 10px;
-
+  padding: 10px ;
+  margin-top: 10px;
 }
 
 .room-name {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   font-weight: bold;
 }
 
 .room-type {
   margin: 10px 0;
-  font-size: 1rem;
+  font-size: 0.7rem;
 }
 
 .room-price {
   margin: 10px 0;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: bold;
 }
 
@@ -145,4 +146,9 @@ ul.roomHiden li:hover img{
   color: #fff;
   font-size: 1.2rem;
   cursor: pointer;
+  transition: 0.6s;
+}
+.btn-book:hover{
+  background-color: #6a9ce6;
+  opacity: 1
 }

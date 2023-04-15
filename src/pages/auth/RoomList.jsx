@@ -8,7 +8,7 @@ import phongvip from "../../assets/images/phongvip.png";
 const RoomList = () => {
   return (
     <div className="container">
-      <div>
+      <div className="flex justify-between items-center">
       <img src={logo} style={{width: '250px', height: '200px'}} alt="logo"/>
       </div>
       <div className="room-list">
@@ -59,11 +59,11 @@ const RoomList = () => {
           </div>
           
         </div>
-        <div className="room-item">
+        <div className="room-item ">
           <div className="room-image">
             <ul className="roomHiden">
               <li>           
-                <img src={phongdon} alt="Phòng" style={{width:'100%'}}/>
+                <img src={phongvip} alt="Phòng" style={{width:'100%'}}/>
               </li>
             </ul>
           </div>
