@@ -1,27 +1,46 @@
+import { notification } from "antd";
 import React from "react";
-import "../../index.css";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { SigninForm } from "../../components/Form";
-import logo from "../../assets/images/logo.png";
+import "../../index.css";
+import { setUserInfo } from "../../redux/userSlice";
+import authApi from "../../services/authApi";
+
 const Signin = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const onChecked = (e) => {
     console.log(`checked = ${e.target.checked}`);
   };
 
-  const onFinish = (value) => {
-    console.log(value);
+  const onFinish = async (value) => {
+    try {
+      const res = await authApi.signin(value);
+      localStorage.setItem("auth-token", res.accessToken);
+      dispatch(setUserInfo(res));
+      notification.success({
+        message: "Đăng nhập thành công",
+        description: "Đăng nhập tài khoản thành công!",
+      });
+      navigate("/room/list");
+    } catch (e) {
+      console.log(e);
+      notification.error({
+        message: "Đăng nhập thất bại",
+        description: e.response?.data?.message,
+      });
+    }
   };
 
   return (
-    
     <div className="flex justify-center items-center h-screen">
       <div>
-
-          <img src={logo} style={{width: '250px', height: '200px', right: '100px'}} alt="logo"/>
         <div className="max-w-lg flex-row">
           <h1 className="font-semibold">Đăng nhập</h1>
           <hr className="mt-4 mb-4" />
         </div>
-
         <div className="max-w-lg flex-row">
           <SigninForm
             submit="Đăng nhập"

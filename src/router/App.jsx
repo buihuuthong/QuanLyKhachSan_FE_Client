@@ -1,8 +1,8 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Signin from '../pages/auth/Signin';
-import Signup from '../pages/auth/Signup';
-import RoomList from '../pages/auth/RoomList';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Signin from "../pages/auth/Signin";
+import Signup from "../pages/auth/Signup";
+import RoomList from "../pages/room/RoomList";
 
 const App = () => {
   return (
@@ -10,12 +10,16 @@ const App = () => {
       <Routes>
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/roomlist" element={<RoomList />} />
-       
-       
+
+        {/* Phòng */}
+        <Route path="/room/*">
+          <Route path="list" element={<RoomList />} />
+          {/* <Route path="type" element={<RoomType />} />
+          <Route path="state" element={<RoomState />} /> */}  
+        </Route>
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;
