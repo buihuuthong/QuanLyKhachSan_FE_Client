@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Signin from "../pages/auth/Signin";
 import Signup from "../pages/auth/Signup";
 import RoomList from "../pages/room/RoomList";
-
+import ProFile from "../pages/profile/ProFile";
 const App = () => {
   return (
     <Router>
@@ -17,6 +17,7 @@ const App = () => {
           {/* <Route path="type" element={<RoomType />} />
           <Route path="state" element={<RoomState />} /> */}  
         </Route>
+        <Route path="/ProFile" element={<ProFile />} />
       </Routes>
     </Router>
   );
