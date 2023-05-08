@@ -14,10 +14,6 @@ const RoomList = () => {
       const res = await roomApi.getAll(page);
       setData(res.list);
       setTotal(res.totalItems);
-      notification.success({
-        message: "Lấy danh sách thành công",
-        description: "Lấy danh sách phòng thành công!",
-      });
     } catch (e) {
       console.log(e);
       notification.error({

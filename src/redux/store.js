@@ -4,16 +4,18 @@ import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
 import userSlice from './userSlice';
+import roomSlice from './roomSlice';
 
 const persistConfig = {
   key: 'rootReducerConfig',
   storage,
-  whitelist: ['user'],
+  whitelist: ['user', 'room'],
   stateReconciler: hardSet,
 };
 
 const rootReducer = combineReducers({
-    user: userSlice
+    user: userSlice,
+    room: roomSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

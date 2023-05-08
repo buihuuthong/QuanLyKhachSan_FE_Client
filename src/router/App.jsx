@@ -14,10 +14,8 @@ const App = () => {
         {/* Phòng */}
         <Route path="/room/*">
           <Route path="list" element={<RoomList />} />
-          {/* <Route path="type" element={<RoomType />} />
-          <Route path="state" element={<RoomState />} /> */}  
         </Route>
-        <Route path="/ProFile" element={<ProFile />} />
+        <Route path="/profile" element={<ProFile />} />
       </Routes>
     </Router>
   );

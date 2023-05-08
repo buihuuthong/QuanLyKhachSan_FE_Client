@@ -18,7 +18,7 @@ const Header = () => {
             overlay={
               <Menu>
                 <Menu.Item key="profile">
-                  <a href="/home">Hồ sơ</a>
+                  <a href="/profile">Hồ sơ</a>
                 </Menu.Item>
                 <Menu.Item key="logout">
                   <a href="/signin">Đăng xuất</a>
@@ -27,7 +27,7 @@ const Header = () => {
             }
           >
             <Button className="text-white">
-              <span>{user.hoten}</span>
+              <span>{user.HoTen}</span>
             </Button>
           </Dropdown>
         </div>

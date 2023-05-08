@@ -1,75 +1,79 @@
 import { Modal } from "antd";
 import React from "react";
-import { AddForm } from "./Form";
+import { ConfirmBook, Detail, HomeBookRoom } from "./Form";
 
-export const UserModal = ({
-  isEditModal,
-  setIsEditModal,
-  onFinish,
-  onFinishFaled,
-  nhanvien,
-  formValues,
-}) => {
-  return (
-    <Modal
-      title="Sửa tài khoản"
-      centered
-      open={isEditModal}
-      footer={null}
-      onCancel={() => setIsEditModal(false)}
-    >
-      <AddForm
-        submit="Cập nhật"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFaled}
-        nhanvien={nhanvien}
-        formValues={formValues}
-      />
-    </Modal>
-  );
-};
 
-export const AddUserModal = ({
+export const DetailModal = ({
   isAddModal,
   setIsAddModal,
   onFinish,
-  onFinishFaled,
-  nhanvien,
+  onFinishFailed,
+  phong,
 }) => {
   return (
     <Modal
-      title="Thêm tài khoản"
+      title="Chi tiết"
       centered
-      open={isAddModal}
+      visible={isAddModal}
       footer={null}
       onCancel={() => setIsAddModal(false)}
     >
-      <AddForm
-        submit="Thêm"
+      <Detail
         onFinish={onFinish}
-        onFinishFailed={onFinishFaled}
-        nhanvien={nhanvien}
+        onFinishFailed={onFinishFailed}
+        phong={phong}
       />
     </Modal>
   );
 };
 
-
-export const DeleteModal = ({
-  title,
-  isDeleteModal,
-  handleOk,
-  setisDeleteModal,
+export const BookRoomModal = ({
+  isAddModal,
+  setIsAddModal,
+  onFinish,
+  onFinishFailed,
+  datphong,
 }) => {
   return (
     <Modal
-      title={title}
+      title="Đặt phòng"
       centered
-      open={isDeleteModal}
-      onOk={handleOk}
-      onCancel={() => setisDeleteModal(false)}
+      visible={isAddModal}
+      footer={null}
+      onCancel={() => setIsAddModal(false)}
     >
-      <b>Bạn muốn xóa tài khoản này?</b>
+      <HomeBookRoom
+        submit="Xác nhận"
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        datphong={datphong}
+        exit={() => setIsAddModal(false)}
+      />
+    </Modal>
+  );
+};
+
+export const ConfirmModal = ({
+  isAddModal,
+  setIsAddModal,
+  onFinish,
+  onFinishFailed,
+  data,
+}) => {
+  return (
+    <Modal
+      title="Xác nhận đặt phòng"
+      centered
+      visible={isAddModal}
+      footer={null}
+      onCancel={() => setIsAddModal(false)}
+    >
+      <ConfirmBook
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        data={data}
+        exit={() => setIsAddModal(false)}
+      />
     </Modal>
   );
 };

@@ -1,61 +1,68 @@
-import { Modal } from "antd";
-import { CheckCircleOutlined, FileTextOutlined, WarningOutlined } from "@ant-design/icons";
-import { Detail, HomeBookRoom } from "./Form";
-import { Card } from "antd";
+import {
+  CheckCircleOutlined,
+  FileTextOutlined,
+  WarningOutlined,
+} from "@ant-design/icons";
+import { Card, notification } from "antd";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { roomInfoSelector } from "../redux/roomSlice";
+import { userInfoSelector } from "../redux/userSlice";
+import { BookRoomModal, ConfirmModal, DetailModal } from "./Modal";
+import dayjs from "dayjs";
+import bookApi from "../services/bookApi";
 const { Meta } = Card;
 
 const CardItem = ({ item }) => {
   const [isModalDetail, setIsModalDetail] = useState(false);
   const [isBookRoomModal, setIsBookRoomModal] = useState(false);
+  const [isConfirmModal, setIsConfirmModal] = useState(false);
+  const [confirmData, setConfirmData] = useState();
+  const room = useSelector(roomInfoSelector);
+  const user = useSelector(userInfoSelector);
 
-  const DetailModal = ({
-    isAddModal,
-    setIsAddModal,
-    onFinish,
-    onFinishFailed,
-    phong,
-  }) => {
-    return (
-      <Modal
-        title="Chi tiết"
-        centered
-        visible={isAddModal}
-        footer={null}
-        onCancel={() => setIsAddModal(false)}
-      >
-        <Detail
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          phong={phong}
-        />
-      </Modal>
-    );
+  const bookRoom = (val) => {
+    const date1 = dayjs(val.NgayNhan);
+    const date2 = dayjs(val.NgayTra);
+    const diffInDays = date2.diff(date1, "day");
+    const TongTien = room.LoaiPhong.GiaThue * diffInDays;
+
+    const data = {
+      MaKhachHang: user.MaKhachHang,
+      TenKhachHang: user.HoTen,
+      MaPhong: room.MaPhong,
+      TenPhong: room.TenPhong,
+      TenLoaiPhong: room.LoaiPhong?.TenLoaiPhong,
+      NgayNhan: val.NgayNhan,
+      NgayTra: val.NgayTra,
+      SoNgayThue: diffInDays,
+      NguoiLon: val.NguoiLon,
+      TreEm: val.TreEm ?? 0,
+      GiaThue: room.LoaiPhong?.GiaThue,
+      PhuThu: 0,
+      TongTien: TongTien,
+      GhiChu: val.GhiChu,
+      MaNhanVien: 1,
+      MaTrangThai: 1,
+      Email: user.Email,
+    };
+
+    setIsBookRoomModal(false);
+    setConfirmData(data);
+    setIsConfirmModal(true);
   };
-  const BookRoomModal = ({
-    isAddModal,
-    setIsAddModal,
-    onFinish,
-    onFinishFailed,
-    datphong,
-  }) => {
-    return (
-      <Modal
-        title="Đặt phòng"
-        centered
-        visible={isAddModal}
-        footer={null}
-        onCancel={() => setIsAddModal(false)}
-      >
-        <HomeBookRoom
-          submit="Xác nhận"
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          datphong={datphong}
-        />
-      </Modal>
-    );
+
+  const confirm = async () => {
+    try {
+      await bookApi.book(confirmData);
+      notification.success({
+        message: "Đặt phòng",
+        description: "Đặt phòng thành công!",
+      });
+      setIsConfirmModal(false);
+    } catch (error) {}
   };
+
   const handleDetailClick = () => {
     setIsModalDetail(true);
   };
@@ -91,31 +98,36 @@ const CardItem = ({ item }) => {
               <CheckCircleOutlined /> Đặt phòng
             </span>
           ) : (
-            <span
-              className="bg-red-500 text-white py-2 px-5 rounded-md"
-            >
+            <span className="bg-red-500 text-white py-2 px-5 rounded-md">
               <WarningOutlined /> Hết phòng
             </span>
           ),
         ]}
       >
-        <Meta title={item.TenPhong} description={item.LoaiPhong?.TenLoaiPhong} />
+        <Meta
+          title={item.TenPhong}
+          description={item.LoaiPhong?.TenLoaiPhong}
+        />
       </Card>
 
       <DetailModal
         isAddModal={isModalDetail}
         setIsAddModal={setIsModalDetail}
-        onFinish={() => console.log("Đặt phòng thành công")}
-        onFinishFailed={() => console.log("Đặt phòng thất bại")}
         phong={item}
       />
 
       <BookRoomModal
         isAddModal={isBookRoomModal}
         setIsAddModal={setIsBookRoomModal}
-        onFinish={() => console.log("Đặt phòng thành công")}
-        onFinishFailed={() => console.log("Đặt phòng thất bại")}
+        onFinish={(val) => bookRoom(val)}
         datphong={item}
+      />
+
+      <ConfirmModal
+        isAddModal={isConfirmModal}
+        setIsAddModal={setIsConfirmModal}
+        onFinish={(val) => confirm(val)}
+        data={confirmData}
       />
     </div>
   );
