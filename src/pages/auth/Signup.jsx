@@ -31,7 +31,7 @@ const Signup = () => {
           <h1 className="font-semibold">Đăng ký</h1>
           <hr className="my-4 mb-4" />
         </div>
-        <AddForm nhanvien submit="Đăng ký" onFinish={onFinish} isSignup />
+        <AddForm khachhang submit="Đăng ký" onFinish={onFinish} />
         <div className="max-w-lg px-10 py-3">
           <span>
             Đã có tài khoản? <a href="/signin">Đăng nhập ngay</a>
