@@ -5,11 +5,12 @@ import {
 } from "@ant-design/icons";
 import { Card, notification } from "antd";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { roomInfoSelector } from "../redux/roomSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { roomInfoSelector, setRoomInfo } from "../redux/roomSlice";
 import { userInfoSelector } from "../redux/userSlice";
 import { BookRoomModal, ConfirmModal, DetailModal } from "./Modal";
 import dayjs from "dayjs";
+import roomApi from '../services/roomApi'
 import bookApi from "../services/bookApi";
 const { Meta } = Card;
 
@@ -18,6 +19,7 @@ const CardItem = ({ item }) => {
   const [isBookRoomModal, setIsBookRoomModal] = useState(false);
   const [isConfirmModal, setIsConfirmModal] = useState(false);
   const [confirmData, setConfirmData] = useState();
+  const dispatch = useDispatch();
   const room = useSelector(roomInfoSelector);
   const user = useSelector(userInfoSelector);
 
@@ -67,7 +69,9 @@ const CardItem = ({ item }) => {
     setIsModalDetail(true);
   };
 
-  const handleBookRoomClick = () => {
+  const handleBookRoomClick = async () => {
+    const res = await roomApi.getById(item.MaPhong);
+    dispatch(setRoomInfo(res))
     setIsBookRoomModal(true);
   };
 
@@ -80,7 +84,14 @@ const CardItem = ({ item }) => {
         cover={
           <img
             alt="phong"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+            
+            src={
+              item.LoaiPhong?.MaLoaiPhong === 1 ? require('../assets/images/phongdon.png') : 
+              item.LoaiPhong?.MaLoaiPhong === 2 ? require('../assets/images/phongdoi.png') : 
+              item.LoaiPhong?.MaLoaiPhong === 3 ? require('../assets/images/phongvip.png') : 
+              item.LoaiPhong?.MaLoaiPhong === 4 ? require('../assets/images/viewSky.png') : 
+              null 
+            } 
           />
         }
         actions={[
