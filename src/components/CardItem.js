@@ -10,7 +10,7 @@ import { roomInfoSelector, setRoomInfo } from "../redux/roomSlice";
 import { userInfoSelector } from "../redux/userSlice";
 import { BookRoomModal, ConfirmModal, DetailModal } from "./Modal";
 import dayjs from "dayjs";
-import roomApi from '../services/roomApi'
+import roomApi from "../services/roomApi";
 import bookApi from "../services/bookApi";
 const { Meta } = Card;
 
@@ -56,7 +56,8 @@ const CardItem = ({ item }) => {
 
   const confirm = async () => {
     try {
-      await bookApi.book(confirmData);
+      const res = await bookApi.book(confirmData);
+      bookApi.createPhuThu(res);
       notification.success({
         message: "Đặt phòng",
         description: "Đặt phòng thành công!",
@@ -71,7 +72,7 @@ const CardItem = ({ item }) => {
 
   const handleBookRoomClick = async () => {
     const res = await roomApi.getById(item.MaPhong);
-    dispatch(setRoomInfo(res))
+    dispatch(setRoomInfo(res));
     setIsBookRoomModal(true);
   };
 
@@ -84,14 +85,17 @@ const CardItem = ({ item }) => {
         cover={
           <img
             alt="phong"
-            
             src={
-              item.LoaiPhong?.MaLoaiPhong === 1 ? require('../assets/images/phongdon.png') : 
-              item.LoaiPhong?.MaLoaiPhong === 2 ? require('../assets/images/phongdoi.png') : 
-              item.LoaiPhong?.MaLoaiPhong === 3 ? require('../assets/images/phongvip.png') : 
-              item.LoaiPhong?.MaLoaiPhong === 4 ? require('../assets/images/viewSky.png') : 
-              null 
-            } 
+              item.LoaiPhong?.MaLoaiPhong === 1
+                ? require("../assets/images/phongdon.png")
+                : item.LoaiPhong?.MaLoaiPhong === 2
+                ? require("../assets/images/phongdoi.png")
+                : item.LoaiPhong?.MaLoaiPhong === 3
+                ? require("../assets/images/phongvip.png")
+                : item.LoaiPhong?.MaLoaiPhong === 4
+                ? require("../assets/images/viewSky.png")
+                : null
+            }
           />
         }
         actions={[

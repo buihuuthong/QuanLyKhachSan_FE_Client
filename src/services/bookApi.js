@@ -20,6 +20,16 @@ const bookApi = {
       Email: data.Email
     });
   },
+  createPhuThu: (data) => {
+    return AxiosClient.post("services/phu-thu", {
+      MaDatPhong: data.MaDatPhong,
+      PhuThu: 0,
+      LyDo: "",
+      GhiChu: "",
+      NgayTao: data.NgayTao,
+      MaNhanVien: data.MaNhanVien,
+    });
+  },
 };
 
 export default bookApi;
