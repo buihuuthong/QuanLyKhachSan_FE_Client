@@ -1,8 +1,8 @@
+import { Pagination, notification } from "antd";
 import React, { useEffect, useState } from "react";
 import CardItem from "../../components/CardItem";
-import roomApi from "../../services/roomApi";
-import { Pagination, notification } from "antd";
 import Main from "../../layout/Main";
+import roomApi from "../../services/roomApi";
 
 const RoomList = () => {
   const [data, setData] = useState([]);

@@ -1,4 +1,4 @@
-import { notification } from "antd";
+import { Button, notification } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -34,6 +34,14 @@ const Signin = () => {
     }
   };
 
+  const signinGoogle = async () => {
+    try {
+      window.open(`http://localhost:8080/auth/google/callback`, "_self");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className="flex justify-center items-center h-screen">
       <div>
@@ -52,6 +60,15 @@ const Signin = () => {
           <span>
             Chưa có tài khoản? <a href="/signup">Đăng ký ngay</a>
           </span>
+        </div>
+        <div className="max-w-lg px-10 py-3">
+          <Button className="google_btn" onClick={signinGoogle}>
+            <img
+              src={require("../../assets/images/google.png")}
+              alt="google icon"
+            />
+            <span>Đăng nhập với Google</span>
+          </Button>
         </div>
       </div>
     </div>

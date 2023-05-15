@@ -1,13 +1,21 @@
 import React from "react";
 import logo from "../assets/images/logo.png";
 import { Button, Dropdown, Menu } from "antd";
-import { userInfoSelector } from "../redux/userSlice";
-import { useSelector } from "react-redux";
+import { setUserInfo, userInfoSelector } from "../redux/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import authApi from "../services/authApi";
 
 const Header = () => {
   const user = useSelector(userInfoSelector);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const onSignOut = async () => {
+    await authApi.signout();
+    dispatch(setUserInfo())
+    navigate('/signin')
+  };
 
   return (
     <div className="flex justify-between items-center">
@@ -21,7 +29,9 @@ const Header = () => {
                   <a href="/profile">Hồ sơ</a>
                 </Menu.Item>
                 <Menu.Item key="logout">
-                  <a href="/signin">Đăng xuất</a>
+                  <a href="##" onClick={onSignOut}>
+                    Đăng xuất
+                  </a>
                 </Menu.Item>
               </Menu>
             }

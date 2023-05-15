@@ -18,6 +18,12 @@ const authApi = {
       Email: data.Email,
     });
   },
+  signout: () => {
+    return AxiosClient.post("auth/signout")
+  },
+  getUserGoogle: () => {
+    return AxiosClient.get("auth/google/user")
+  }
 };
 
 export default authApi;

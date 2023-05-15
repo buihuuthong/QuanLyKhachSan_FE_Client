@@ -12,9 +12,11 @@ import { BookRoomModal, ConfirmModal, DetailModal } from "./Modal";
 import dayjs from "dayjs";
 import roomApi from "../services/roomApi";
 import bookApi from "../services/bookApi";
+import { useNavigate } from "react-router-dom";
 const { Meta } = Card;
 
 const CardItem = ({ item }) => {
+  const navigate = useNavigate();
   const [isModalDetail, setIsModalDetail] = useState(false);
   const [isBookRoomModal, setIsBookRoomModal] = useState(false);
   const [isConfirmModal, setIsConfirmModal] = useState(false);
@@ -71,9 +73,13 @@ const CardItem = ({ item }) => {
   };
 
   const handleBookRoomClick = async () => {
-    const res = await roomApi.getById(item.MaPhong);
-    dispatch(setRoomInfo(res));
-    setIsBookRoomModal(true);
+    if (user) {
+      const res = await roomApi.getById(item.MaPhong);
+      dispatch(setRoomInfo(res));
+      setIsBookRoomModal(true);
+    } else {
+      navigate("/signin");
+    }
   };
 
   return (
@@ -100,20 +106,20 @@ const CardItem = ({ item }) => {
         }
         actions={[
           <span
-            className="bg-teal-500 text-white py-2 px-5 rounded-md"
+            className="bg-teal-500 text-white py-2 px-5 rounded-md flex justify-center items-center"
             onClick={handleDetailClick}
           >
             <FileTextOutlined /> Chi tiết
           </span>,
           item.MaTinhTrang === 1 ? (
             <span
-              className="bg-green-500 text-white py-2 px-5 rounded-md"
+              className="bg-green-500 text-white py-2 px-5 rounded-md flex justify-center items-center"
               onClick={handleBookRoomClick}
             >
               <CheckCircleOutlined /> Đặt phòng
             </span>
           ) : (
-            <span className="bg-red-500 text-white py-2 px-5 rounded-md">
+            <span className="bg-red-500 text-white py-2 px-5 rounded-md flex justify-center items-center">
               <WarningOutlined /> Hết phòng
             </span>
           ),

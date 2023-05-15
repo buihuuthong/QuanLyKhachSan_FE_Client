@@ -4,9 +4,12 @@ import "../../index.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserInfo, userInfoSelector } from "../../redux/userSlice";
 import userApi from "../../services/userApi";
-import { notification } from "antd";
+import { Button, notification } from "antd";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 const ProFile = () => {
+  const navigate = useNavigate()
   const user = useSelector(userInfoSelector);
   const dispatch = useDispatch();
 
@@ -41,6 +44,7 @@ const ProFile = () => {
     <div className="flex justify-center items-center h-screen">
       <div>
         <div className="max-w-lg flex-row">
+          <Button onClick={() => navigate('/room/list')} type="primary" className="flex justify-center items-center" icon={<ArrowLeftOutlined  />} />
           <h1 className="font-semibold">Hồ sơ</h1>
           <hr className="my-4 mb-4" />
         </div>

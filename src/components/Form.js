@@ -203,13 +203,6 @@ export const EditProfile = ({
         <Button className="large-btn" type="primary" htmlType="submit">
           {submit}
         </Button>
-        <br />
-        <br />
-        <a href="/room/list">
-          <Button className="large-btn" type="primary">
-            Hủy
-          </Button>
-        </a>
       </Form.Item>
     </Form>
   );

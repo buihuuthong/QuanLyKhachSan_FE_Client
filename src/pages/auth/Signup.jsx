@@ -1,4 +1,4 @@
-import { notification } from "antd";
+import { Button, notification } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AddForm } from "../../components/Form";
@@ -23,7 +23,15 @@ const Signup = () => {
       });
     }
   };
-//khách hàng
+
+  const signinGoogle = async () => {
+    try {
+      window.open(`http://localhost:8080/auth/google/callback`, "_self");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  
   return (
     <div className="flex justify-center items-center h-screen">
       <div>
@@ -36,6 +44,15 @@ const Signup = () => {
           <span>
             Đã có tài khoản? <a href="/signin">Đăng nhập ngay</a>
           </span>
+        </div>
+        <div className="max-w-lg px-10 py-3">
+          <Button className="google_btn" onClick={signinGoogle}>
+            <img
+              src={require("../../assets/images/google.png")}
+              alt="google icon"
+            />
+            <span>Đăng ký với Google</span>
+          </Button>
         </div>
       </div>
     </div>
