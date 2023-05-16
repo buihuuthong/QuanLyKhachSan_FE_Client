@@ -60,6 +60,7 @@ const CardItem = ({ item }) => {
     try {
       const res = await bookApi.book(confirmData);
       bookApi.createPhuThu(res);
+      roomApi.book();
       notification.success({
         message: "Đặt phòng",
         description: "Đặt phòng thành công!",

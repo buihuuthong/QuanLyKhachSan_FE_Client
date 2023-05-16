@@ -7,6 +7,9 @@ const roomApi = {
   getById: (id) => {
     return AxiosClient.get("phong/thong-tin?id=" + id);
   },
+  book: () => {
+    return AxiosClient.put("phong/dat-phong")
+  }
 };
 
 export default roomApi;
