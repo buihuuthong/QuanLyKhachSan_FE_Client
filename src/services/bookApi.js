@@ -30,6 +30,12 @@ const bookApi = {
       MaNhanVien: data.MaNhanVien,
     });
   },
+  history: (id) => {
+    return AxiosClient.get("dat-phong/lich-su?id=" + id)
+  },
+  cancel: (id) => {
+    return AxiosClient.put("dat-phong/huy-don?id=" + id)
+  }
 };
 
 export default bookApi;

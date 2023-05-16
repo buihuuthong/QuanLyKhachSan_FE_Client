@@ -31,13 +31,7 @@ const FormItem = ({ label, name, required, message, children }) => {
   );
 };
 
-export const AddForm = ({
-  khachhang,
-  onFinish,
-  onFinishFailed,
-  submit,
-
-}) => {
+export const AddForm = ({ khachhang, onFinish, onFinishFailed, submit }) => {
   return (
     <Form
       name="add"
@@ -84,7 +78,11 @@ export const AddForm = ({
         <DatePicker placeholder="Ngày sinh" style={{ width: "100%" }} />
       </FormItem>
 
-      <FormItem name="Email" required={khachhang ? true : false} message="email">
+      <FormItem
+        name="Email"
+        required={khachhang ? true : false}
+        message="email"
+      >
         <Input placeholder="Email" prefix={<MailOutlined />} />
       </FormItem>
 
@@ -95,7 +93,7 @@ export const AddForm = ({
       >
         <Input placeholder="Địa chỉ" prefix={<HomeOutlined />} />
       </FormItem>
-     
+
       <FormItem
         name="SDT"
         required={khachhang ? true : false}
@@ -341,15 +339,15 @@ export const ConfirmBook = ({ data, onFinish, onFinishFailed, exit }) => {
 
   return (
     <Form
-    layout="vertical"
-    name="add"
-    style={{
-      maxWidth: 600,
-    }}
-    initialValues={{
-      remember: true,
-      layout: "vertical",
-    }}
+      layout="vertical"
+      name="add"
+      style={{
+        maxWidth: 600,
+      }}
+      initialValues={{
+        remember: true,
+        layout: "vertical",
+      }}
       onFinish={handleFormSubmit}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
@@ -357,7 +355,11 @@ export const ConfirmBook = ({ data, onFinish, onFinishFailed, exit }) => {
       form={form}
     >
       <div className="flex justify-between">
-        <FormItem label="Tên khách hàng" name="TenKhachHang" message="ngày nhận">
+        <FormItem
+          label="Tên khách hàng"
+          name="TenKhachHang"
+          message="ngày nhận"
+        >
           <Input prefix={<UserOutlined />} />
         </FormItem>
         <FormItem label="Email" name="Email" message="ngày trả">
@@ -396,7 +398,7 @@ export const ConfirmBook = ({ data, onFinish, onFinishFailed, exit }) => {
           <Input prefix={<DollarCircleOutlined />} />
         </FormItem>
       </div>
-      <FormItem label="Ghi chú khách hàng"name="GhiChu" message="ghi chú">
+      <FormItem label="Ghi chú khách hàng" name="GhiChu" message="ghi chú">
         <TextArea placeholder="Ghi chú" />
       </FormItem>
       <Form.Item className="flex justify-end ">
@@ -407,6 +409,92 @@ export const ConfirmBook = ({ data, onFinish, onFinishFailed, exit }) => {
           Huỷ
         </Button>
       </Form.Item>
+    </Form>
+  );
+};
+
+export const DetailBook = ({ data }) => {
+  console.log(data);
+  const [form] = Form.useForm();
+  form.setFieldsValue({
+    TenKhachHang: data.KhachHang?.HoTen,
+    TenPhong: data.Phong?.TenPhong,
+    TenLoaiPhong: data.TenLoaiPhong,
+    NgayNhan: dayjs(data.NgayNhan, "YYYY-MM-DD"),
+    NgayTra: dayjs(data.NgayTra, "YYYY-MM-DD"),
+    SoNgayThue: data.SoNgayThue,
+    NguoiLon: data.NguoiLon,
+    TreEm: data.TreEm,
+    GiaThue: data.GiaThue,
+    PhuThu: 0,
+    TongTien: data.TongTien,
+    GhiChu: data.GhiChu,
+    MaNhanVien: 1,
+    MaTrangThai: 1,
+    Email: data.KhachHang?.Email,
+  });
+  return (
+    <Form
+      layout="vertical"
+      name="add"
+      style={{
+        maxWidth: 600,
+      }}
+      initialValues={{
+        remember: true,
+        layout: "vertical",
+      }}
+      autoComplete="off"
+      size="midle"
+      form={form}
+    >
+      <div className="flex justify-between">
+        <FormItem
+          label="Tên khách hàng"
+          name="TenKhachHang"
+          message="ngày nhận"
+        >
+          <Input prefix={<UserOutlined />} />
+        </FormItem>
+        <FormItem label="Email" name="Email" message="ngày trả">
+          <Input prefix={<MailOutlined />} />
+        </FormItem>
+      </div>
+      <div className="flex justify-between">
+        <FormItem label="Tên phòng" name="TenPhong" message="ngày nhận">
+          <Input prefix={<HomeOutlined />} />
+        </FormItem>
+        <FormItem label="Loại phòng" name="TenLoaiPhong" message="ngày trả">
+          <Input prefix={<HomeOutlined />} />
+        </FormItem>
+      </div>
+      <div className="flex justify-between">
+        <FormItem label="Ngày nhận" name="NgayNhan" message="ngày nhận">
+          <DatePicker style={{ width: "100%" }} />
+        </FormItem>
+        <FormItem label="Ngày trả" name="NgayTra" message="ngày trả">
+          <DatePicker style={{ width: "100%" }} />
+        </FormItem>
+      </div>
+      <div className="flex  justify-between">
+        <FormItem label="Người lớn" name="NguoiLon" message="Người lớn">
+          <Input prefix={<UserOutlined />} />
+        </FormItem>
+        <FormItem label="Trẻ em" name="TreEm" message="Trẻ em">
+          <Input prefix={<UserOutlined />} />
+        </FormItem>
+      </div>
+      <div className="flex  justify-between">
+        <FormItem label="Giá thuê" name="GiaThue" message="Người lớn">
+          <Input prefix={<DollarCircleOutlined />} />
+        </FormItem>
+        <FormItem label="Tạm tính" name="TongTien" message="Trẻ em">
+          <Input prefix={<DollarCircleOutlined />} />
+        </FormItem>
+      </div>
+      <FormItem label="Ghi chú khách hàng" name="GhiChu" message="ghi chú">
+        <TextArea placeholder="Ghi chú" />
+      </FormItem>
     </Form>
   );
 };

@@ -28,6 +28,9 @@ const Header = () => {
                 <Menu.Item key="profile">
                   <a href="/profile">Hồ sơ</a>
                 </Menu.Item>
+                <Menu.Item key="history">
+                  <a href="/history">Lịch sử</a>
+                </Menu.Item>
                 <Menu.Item key="logout">
                   <a href="##" onClick={onSignOut}>
                     Đăng xuất
