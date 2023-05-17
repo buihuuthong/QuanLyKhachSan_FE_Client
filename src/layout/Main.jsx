@@ -1,10 +1,10 @@
 import React from "react";
 import Header from "./Header";
 
-const Main = ({ children}) => {
+const Main = ({ children, title}) => {
   return (
     <div className="px-10">
-      <Header />
+      <Header title={title} />
       {children}
     </div>
   );

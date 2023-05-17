@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import authApi from "../services/authApi";
 
-const Header = () => {
+const Header = ({ title }) => {
   const user = useSelector(userInfoSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,6 +20,7 @@ const Header = () => {
   return (
     <div className="flex justify-between items-center">
       <img src={logo} style={{ width: "250px", height: "200px" }} alt="logo" />
+      <p className="text-3xl font-semibold p-5">{title}</p>
       {user ? (
         <div>
           <Dropdown

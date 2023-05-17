@@ -1,11 +1,9 @@
-import { CheckCircleOutlined, FileTextOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, FileTextOutlined, WarningOutlined } from "@ant-design/icons";
 import { Card, notification } from "antd";
 import React, { useState } from "react";
 import bookApi from "../services/bookApi";
 import roomApi from "../services/roomApi";
-import { DeleteModal, DetailBookModal, DetailModal } from "./Modal";
-import { BookRoomModal } from "./Modal";
-import { ConfirmModal } from "./Modal";
+import { DeleteModal, DetailBookModal } from "./Modal";
 const { Meta } = Card;
 
 const CardHistoryItem = ({ item }) => {
@@ -67,16 +65,23 @@ const CardHistoryItem = ({ item }) => {
             className="bg-teal-500 text-white py-2 px-5 rounded-md flex justify-center items-center"
             onClick={handleDetailClick}
           >
-            <FileTextOutlined /> Chi tiết
+            <FileTextOutlined className="mr-2" /> Chi tiết
           </span>,
           item.MaTrangThai !== 4 ? (
             <span
               className="bg-red-500 text-white py-2 px-5 rounded-md flex justify-center items-center"
               onClick={() => showHuyDonModal(item.MaDatPhong)}
             >
-              <CheckCircleOutlined /> Hủy Đặt
+              <WarningOutlined className="mr-2" /> Hủy Đặt
             </span>
-          ) : null,
+          ) : (
+            <span
+              className="bg-blue-500 text-white py-2 px-5 rounded-md flex justify-center items-center"
+              // onClick={() => showHuyDonModal(item.MaDatPhong)}
+            >
+              <CheckCircleOutlined className="mr-2"/>{item.TrangThaiDat?.TenTrangThai}
+            </span>
+          ),
         ]}
       >
         <Meta

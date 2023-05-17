@@ -32,7 +32,7 @@ const RoomList = () => {
   };
 
   return (
-    <Main>
+    <Main title="Danh sách phòng">
       <div
         style={{
           display: "grid",

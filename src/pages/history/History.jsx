@@ -28,7 +28,7 @@ const History = () => {
   }, []);
 
   return (
-    <Main>
+    <Main title="Lịch sử đặt">
       <div
         style={{
           display: "grid",
